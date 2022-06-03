@@ -18,6 +18,8 @@ class Console(Tk):
   self.config(background=bg)
   self.geometry('750x490')
   self.title(title)
+  self.bind('<Key>',self.key_pressed)
+  self.activeKey = ''
   self.mapRows = mr = {
     '0': '  12345678\n',
   	'a': 'A ########\n',
@@ -54,12 +56,16 @@ class Console(Tk):
   self.updateElements()
   # Loop #
   self.mainloop()
-  
+
  def updateElements(self):
   mr,dr,ar = self.mapRows,self.descRows,self.actRows
   self.actLabl.config(text='\n'+ar['1']+ar['2']+ar['3'])
   self.desc.config(text='\n'+dr['1']+dr['2']+dr['3']+dr['4']+dr['5'])
   self.map.config(text='\n'+mr['0']+mr['a']+mr['b']+mr['c']+mr['d']+mr['e'])
+
+ def key_pressed(self, event):
+  self.activeKey = event.keysym
+  if isDebug: print(event.char, self.activeKey)
 
 # Run standalone on Debug #
 if isDebug:
