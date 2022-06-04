@@ -54,8 +54,6 @@ class Console(Tk):
   self.actLabl.config(**labelConfig)
   self.actLabl.place(x=0,y=390,width=375,height=100)
   self.updateElements()
-  # Loop #
-  self.mainloop()
 
  def updateElements(self):
   mr,dr,ar = self.mapRows,self.descRows,self.actRows
