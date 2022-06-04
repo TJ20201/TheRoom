@@ -1,8 +1,10 @@
 from console import Console
 from threading import Thread
 from time import sleep
+import sys
 
-console = Console()
+debugMode = True if '--debug' in sys.argv else False
+console = Console(debugMode=debugMode)
 basemap = str(console.mapRows)
 curmap = console.mapRows
 tps = 20

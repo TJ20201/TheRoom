@@ -9,11 +9,12 @@ from tkinter import Tk, Label
 font = ("Consolas", 20)
 half_font = ("Consolas", 10)
 labelConfig = {'anchor':'w'}
-isDebug = __name__ == "__main__"
+isDebug = False
+isSelfRunnable = __name__ == "__main__"
 bg = '#111111'
 
 class Console(Tk):
- def __init__(self, title='TheRoom Console'):
+ def __init__(self, title='TheRoom Console', debugMode=False):
   super().__init__()
   # Configuration #
   self.config(background=bg)
@@ -21,6 +22,7 @@ class Console(Tk):
   self.title(title)
   self.bind('<Key>',self.key_pressed)
   self.activeKey = ''
+  isDebug = debugMode
   self.mapRows = mr = {
     '0': '  1 2 3 4 5\n',
   	'a': 'A ╭───────╮\n',
@@ -85,6 +87,6 @@ class Console(Tk):
   self.activeKey = event.keysym
   if isDebug: print(event.char, self.activeKey)
 
-# Run standalone on Debug #
-if isDebug:
+# Run standalone if possible #
+if isSelfRunnable:
  console = Console()
