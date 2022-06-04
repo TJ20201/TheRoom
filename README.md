@@ -2,9 +2,9 @@
 A text-based game about a room. Made using Python Tkinter.
 
 ## Requirements
-- Python 3.x with Tkinter
-- Python 3.x ["time"](https://docs.python.org/3/library/time.html) module
-- Python 3.x "threading" module
+- Python 3.x [tkinter](https://docs.python.org/3/library/tkinter.html)
+- Python 3.x [time](https://docs.python.org/3/library/time.html) module
+- Python 3.x [Threading](https://docs.python.org/3/library/threading.html) module
 
 ## Installation
 Steps to install:
