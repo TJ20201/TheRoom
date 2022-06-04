@@ -22,19 +22,25 @@ class Console(Tk):
   self.bind('<Key>',self.key_pressed)
   self.activeKey = ''
   self.mapRows = mr = {
-    '0': '  12345678\n',
-  	'a': 'A ╭──────╮\n',
-  	'b': 'B │      │\n',
-  	'c': 'C │      │\n',
-  	'd': 'D │      │\n',
-  	'e': 'E ╰──────╯\n'
+    '0': '  1 2 3 4 5\n',
+  	'a': 'A ╭───────╮\n',
+  	'b': 'B │       │\n',
+  	'c': 'C │       │\n',
+  	'd': 'D │       │\n',
+  	'e': 'E ╰───────╯\n'
   }
   self.mapKeyRows = mkr = ''.join([
     '  ┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓\n',
-    '  ┃ Character ┃        Key       ┃\n',
+    '  ┃  Symbol   ┃        Key       ┃\n',
     '  ┣━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━┫\n',
     '  ┃     x     ┃    The Player    ┃\n',
     '  ┃     #     ┃     An object    ┃\n',
+    '  ┃           ┃                  ┃\n',
+    '  ┃           ┃                  ┃\n',
+    '  ┃           ┃                  ┃\n',
+    '  ┃           ┃                  ┃\n',
+    '  ┃           ┃                  ┃\n',
+    '  ┃           ┃                  ┃\n',
     '  ┗━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┛\n'
   ])
   self.descRows = dr = {
@@ -53,7 +59,7 @@ class Console(Tk):
   ## Map Element ##
   self.map = Label(foreground='#ffffff', background=bg if isDebug == False else '#ff0000',font=font)
   self.map.config(**labelConfig)
-  self.map.place(x=0,y=0,width=160,height=190)
+  self.map.place(x=0,y=0,width=190,height=190)
   ## Description Element ##
   self.desc = Label(foreground='#ffffff',background=bg if isDebug == False else '#00ff00',  font=font)
   self.desc.config(**labelConfig)
@@ -65,7 +71,7 @@ class Console(Tk):
   ## Map Key Element ##
   self.mkey = Label(foreground='#ffffff' if isDebug == False else '#000000',background=bg if isDebug == False else '#ffff00',font=half_font)
   self.mkey.config(anchor='nw')
-  self.mkey.place(x=185,y=0,width=565,height=190)
+  self.mkey.place(x=215,y=0,width=535,height=190)
   self.updateElements()
 
  def updateElements(self):

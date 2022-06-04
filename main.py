@@ -15,30 +15,30 @@ keymap = {
 }
 
 positions = {
- 'characterOld': ['C', 4],
- 'character': ['C', 4]
+ 'characterOld': ['C', 3],
+ 'character': ['C', 3]
 }
 
 blocked = [
  # Wall Blocks
- ['A', '*'], ['*', 1], ['E', '*'], ['*', 8]
+ ['A', '*'], ['*', 1], ['E', '*'], ['*', 9]
 ]
-# Change * shortcut to A-E and 1-8
+# Change * shortcut to A-E and 1-10
 blockedTemp = blocked
 for block in blocked:
  if block[0] == '*':
   for i in range(5):blockedTemp.append([chr(i+65), block[1]])
  if block[1] == '*':
-  for i in range(7):blockedTemp.append([block[0], i+1])
+  for i in range(9):blockedTemp.append([block[0], i+1])
 del blockedTemp
 
 def letterDecrement(char:str): return changePrevention(chr(ord(char)-1))
 def letterIncrement(char:str): return changePrevention(chr(ord(char)+1))
-def numberDecrement(targ:int): return changePrevention(targ-1)
-def numberIncrement(targ:int): return changePrevention(targ+1)
+def numberDecrement(targ:int): return changePrevention(targ-2)
+def numberIncrement(targ:int): return changePrevention(targ+2)
 def changePrevention(targ):
  # Out of Bounds Check
- if not targ in ['A','B','C','D','E',1,2,3,4,5,6,7,8]: return 'preventMove'
+ if not targ in ['A','B','C','D','E',1,2,3,4,5,6,7,8,9,10]: return 'preventMove'
  else:
   return targ
 
