@@ -3,7 +3,7 @@ from threading import Thread
 from time import sleep
 
 console = Console()
-basemap = "{'0': '  12345678\\n','a': 'A ########\\n','b': 'B #      #\\n','c': 'C #      #\\n','d': 'D #      #\\n','e': 'E ########\\n'}"
+basemap = str(console.mapRows)
 curmap = console.mapRows
 tps = 20
 

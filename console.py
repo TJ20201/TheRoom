@@ -7,6 +7,7 @@
 
 from tkinter import Tk, Label
 font = ("Consolas", 20)
+half_font = ("Consolas", 10)
 labelConfig = {'anchor':'w'}
 isDebug = __name__ == "__main__"
 bg = '#111111'
@@ -22,12 +23,20 @@ class Console(Tk):
   self.activeKey = ''
   self.mapRows = mr = {
     '0': '  12345678\n',
-  	'a': 'A ########\n',
-  	'b': 'B #      #\n',
-  	'c': 'C #      #\n',
-  	'd': 'D #      #\n',
-  	'e': 'E ########\n'
+  	'a': 'A ╭──────╮\n',
+  	'b': 'B │      │\n',
+  	'c': 'C │      │\n',
+  	'd': 'D │      │\n',
+  	'e': 'E ╰──────╯\n'
   }
+  self.mapKeyRows = mkr = ''.join([
+    '  ┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓\n',
+    '  ┃ Character ┃        Key       ┃\n',
+    '  ┣━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━┫\n',
+    '  ┃     x     ┃    The Player    ┃\n',
+    '  ┃     #     ┃     An object    ┃\n',
+    '  ┗━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┛\n'
+  ])
   self.descRows = dr = {
   	'1': '> \n',
   	'2': '> \n',
@@ -52,11 +61,16 @@ class Console(Tk):
   ## Interaction Element ##
   self.actLabl = Label(foreground='#ffffff',background=bg if isDebug == False else '#0000ff',font=font)
   self.actLabl.config(**labelConfig)
-  self.actLabl.place(x=0,y=390,width=375,height=100)
+  self.actLabl.place(x=-60,y=390,width=435,height=100)
+  ## Map Key Element ##
+  self.mkey = Label(foreground='#ffffff' if isDebug == False else '#000000',background=bg if isDebug == False else '#ffff00',font=half_font)
+  self.mkey.config(anchor='nw')
+  self.mkey.place(x=185,y=0,width=565,height=190)
   self.updateElements()
 
  def updateElements(self):
-  mr,dr,ar = self.mapRows,self.descRows,self.actRows
+  mr,dr,ar,mkr = self.mapRows,self.descRows,self.actRows,self.mapKeyRows
+  self.mkey.config(text=mkr)
   self.actLabl.config(text='\n'+ar['1']+ar['2']+ar['3'])
   self.desc.config(text='\n'+dr['1']+dr['2']+dr['3']+dr['4']+dr['5'])
   self.map.config(text='\n'+mr['0']+mr['a']+mr['b']+mr['c']+mr['d']+mr['e'])
