@@ -21,6 +21,11 @@ positions = {
  'character': ['C', 3]
 }
 
+directions = {
+ 'characterOld': ['up'],
+ 'character': ['up']
+}
+
 blocked = [
  # Wall Blocks
  ['A', '*'], ['*', 1], ['E', '*'], ['*', 9]
@@ -55,7 +60,12 @@ def updatePositions():
  # Update Character
  charver = positions['character'][0].lower()
  charhor = positions['character'][1]+1
- curmap[charver] = curmap[charver][:charhor]+'x'+curmap[charver][charhor+1:]
+ char    = '▲'
+ if directions['character'][0] == 'up': char = '▲'
+ if directions['character'][0] == 'down': char = '▼'
+ if directions['character'][0] == 'left': char = '◄'
+ if directions['character'][0] == 'right': char = '►'
+ curmap[charver] = curmap[charver][:charhor]+char+curmap[charver][charhor+1:]
  # Update Map
  console.mapRows = curmap
  console.updateElements()
@@ -66,12 +76,16 @@ def loop():
   positions['characterOld'] = eval(str(positions['character']))
   if console.activeKey in keymap['moveUp']: 
    positions['character'][0]=checkPrevent(positions['character'][0],letterDecrement)
+   directions['character'][0] = 'up'
   if console.activeKey in keymap['moveDown']: 
    positions['character'][0]=checkPrevent(positions['character'][0],letterIncrement)
+   directions['character'][0] = 'down'
   if console.activeKey in keymap['moveLeft']: 
    positions['character'][1]=checkPrevent(positions['character'][1],numberDecrement)
+   directions['character'][0] = 'left'
   if console.activeKey in keymap['moveRight']: 
    positions['character'][1]=checkPrevent(positions['character'][1],numberIncrement)
+   directions['character'][0] = 'right'
   console.activeKey = ''
   updatePositions()
   sleep(1/tps)
