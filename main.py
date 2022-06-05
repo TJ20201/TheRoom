@@ -13,7 +13,10 @@ keymap = {
  'moveUp': ['w', 'Up'],
  'moveDown': ['s', 'Down'],
  'moveLeft': ['a', 'Left'],
- 'moveRight': ['d', 'Right']
+ 'moveRight': ['d', 'Right'],
+ 'actionInteract': ['1'],
+ 'actionCheck': ['2'],
+ 'actionMenu': ['3']
 }
 
 positions = {
@@ -49,6 +52,20 @@ def changePrevention(targ):
  else:
   return targ
 
+def queryDescType(line:str, number:int, autoclear:bool, avoidRows:list=[]):
+ curword = ''
+ for letter in line:
+  curword += letter
+  console.descRows[str(number)] = '> '+curword+'\n'
+  for row in console.descRows:
+   if str(row) != str(number) and int(row) > number: console.descRows[row] = '> '+' '*len(curword)+'\n'
+  console.updateElements()
+  sleep(1/ ( len(line) ) )
+ if autoclear:
+  sleep(1/tps*4)
+  for row in console.descRows:
+   console.descRows[row] = '> \n'
+
 def checkPrevent(target:str, check): return target if check(target) == 'preventMove' else check(target)
 
 def updatePositions():
@@ -74,18 +91,38 @@ def loop():
  while True:
   # Handlers
   positions['characterOld'] = eval(str(positions['character']))
+  ## Movement
+  ### Move Up
   if console.activeKey in keymap['moveUp']: 
    positions['character'][0]=checkPrevent(positions['character'][0],letterDecrement)
    directions['character'][0] = 'up'
+  ### Move Down
   if console.activeKey in keymap['moveDown']: 
    positions['character'][0]=checkPrevent(positions['character'][0],letterIncrement)
    directions['character'][0] = 'down'
+  ### Move Left
   if console.activeKey in keymap['moveLeft']: 
    positions['character'][1]=checkPrevent(positions['character'][1],numberDecrement)
    directions['character'][0] = 'left'
+  ### Move Right
   if console.activeKey in keymap['moveRight']: 
    positions['character'][1]=checkPrevent(positions['character'][1],numberIncrement)
    directions['character'][0] = 'right'
+  ## Actions
+  ### Interact Action
+  if console.activeKey in keymap['actionInteract']:
+   queryDescType('...You can\'t interact with nothing.', 1, True)
+  ### Check Action
+  if console.activeKey in keymap['actionCheck']:
+   queryDescType('Nothing suspicious here.', 1, True)
+  ### Menu Action
+  if console.activeKey in keymap['actionMenu']:
+   queryDescType('This feature still needs to be worked on.', 1, False)
+   queryDescType('(We don\'t know how to make this work yet.)', 2, False)
+   sleep(1/tps*4)
+   for row in console.descRows:
+    console.descRows[row] = '> \n'
+  # Reset activeKey and update positions, then wait for next tick
   console.activeKey = ''
   updatePositions()
   sleep(1/tps)
